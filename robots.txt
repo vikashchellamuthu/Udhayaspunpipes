@@ -1,0 +1,5 @@
+# Udhaya Spun Pipes robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://udhayaspunpipes.com/sitemap.xml
