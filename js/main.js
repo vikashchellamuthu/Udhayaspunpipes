@@ -154,10 +154,17 @@ function initLightbox() {
     const item = itemsArray[currentIndex];
     const imgEl = item.querySelector("img");
     const src = item.getAttribute("data-lightbox-src") || imgEl?.getAttribute("src") || imgEl?.src;
+    const fallback = item.getAttribute("data-lightbox-fallback") || "";
     const title = item.getAttribute("data-lightbox-title") || imgEl?.alt || "";
     const desc = item.getAttribute("data-lightbox-desc") || "";
 
     if (modalImg) {
+      if (fallback) {
+        modalImg.onerror = function () {
+          this.onerror = null;
+          this.src = fallback;
+        };
+      }
       modalImg.src = src;
       modalImg.alt = title;
     }

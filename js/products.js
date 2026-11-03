@@ -3,16 +3,16 @@
  * 
  * Strict specifications:
  * - All measurements refer exclusively to INTERNAL DIAMETER (ID).
- * - NP2: 6 sizes [150, 250, 300, 400, 600, 900] mm
- * - NP3: 7 sizes [300, 400, 600, 900, 1000, 1200, 1400] mm
+ * - NP2: 5 sizes [150, 250, 450, 600, 900] mm
+ * - NP3: 7 sizes [300, 450, 600, 900, 1000, 1200, 1400] mm
  * - NP4: 5 sizes [600, 900, 1000, 1200, 1400] mm
- * - Total: 18 confirmed grade-size combinations across 9 unique diameters (150 mm to 1400 mm).
+ * - Total: 17 confirmed grade-size combinations across 9 unique diameters (150 mm to 1400 mm).
  */
 
 // Exact confirmed product catalogue data structure
 const productCatalogue = {
-  NP2: [150, 250, 300, 400, 600, 900],
-  NP3: [300, 400, 600, 900, 1000, 1200, 1400],
+  NP2: [150, 250, 450, 600, 900],
+  NP3: [300, 450, 600, 900, 1000, 1200, 1400],
   NP4: [600, 900, 1000, 1200, 1400]
 };
 
@@ -22,15 +22,15 @@ const gradeDetails = {
     name: "NP2 RCC Pipes",
     class: "Light to Medium Duty",
     description: "Designed for gravity drainage, irrigation, non-heavy traffic culverts, and general storm water passage.",
-    sizesCount: 6,
-    diameters: [150, 250, 300, 400, 600, 900]
+    sizesCount: 5,
+    diameters: [150, 250, 450, 600, 900]
   },
   NP3: {
     name: "NP3 RCC Pipes",
     class: "Medium Duty (Standard Road Loading)",
     description: "Engineered for road crossings, highways, urban drainage, and areas subject to medium vehicular loads.",
     sizesCount: 7,
-    diameters: [300, 400, 600, 900, 1000, 1200, 1400]
+    diameters: [300, 450, 600, 900, 1000, 1200, 1400]
   },
   NP4: {
     name: "NP4 RCC Pipes",

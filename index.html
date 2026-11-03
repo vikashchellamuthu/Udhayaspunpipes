@@ -38,6 +38,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800;900&display=swap" rel="stylesheet">
 
+  <!-- Preload Critical Above-the-Fold Hero Image -->
+  <link rel="preload" as="image" href="./assets/images/hero.webp" type="image/webp" fetchpriority="high">
+
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="./css/style.css">
 
@@ -76,7 +79,7 @@
           "itemOffered": {
             "@type": "Product",
             "name": "NP2 RCC Concrete Pipes",
-            "description": "Light to medium duty RCC pipes available in 150, 250, 300, 400, 600, 900 mm internal diameters."
+            "description": "Light to medium duty RCC pipes available in 150, 250, 450, 600, 900 mm internal diameters."
           }
         },
         {
@@ -84,7 +87,7 @@
           "itemOffered": {
             "@type": "Product",
             "name": "NP3 RCC Concrete Pipes",
-            "description": "Medium duty standard road loading RCC pipes available in 300, 400, 600, 900, 1000, 1200, 1400 mm internal diameters."
+            "description": "Medium duty standard road loading RCC pipes available in 300, 450, 600, 900, 1000, 1200, 1400 mm internal diameters."
           }
         },
         {
@@ -112,7 +115,10 @@
     <div class="container navbar">
       <!-- Brand Logo & Name -->
       <a href="#home" class="brand-wrapper" aria-label="Udhaya Spun Pipes Homepage">
-        <img src="./assets/images/logo.png" alt="Udhaya Spun Pipes Logo" class="brand-logo-img" width="48" height="48" onerror="this.onerror=null;this.src='./assets/images/logo.svg';">
+        <picture class="brand-logo-picture">
+          <source srcset="./assets/images/logo.webp" type="image/webp">
+          <img src="./assets/images/logo.png" alt="Udhaya Spun Pipes Logo" class="brand-logo-img" width="48" height="48" fetchpriority="high" decoding="sync" onerror="this.onerror=null;this.src='./assets/images/logo.svg';">
+        </picture>
         <div class="brand-title">
           <span class="brand-name">UDHAYA <span>SPUN PIPES</span></span>
           <span class="brand-subtitle">MANAMADURAI, TAMIL NADU</span>
@@ -122,7 +128,10 @@
       <!-- Desktop & Mobile Navigation Menu -->
       <nav class="nav-menu" role="navigation" aria-label="Primary Navigation">
         <div class="mobile-nav-brand" aria-hidden="true">
-          <img src="./assets/images/logo.png" alt="Udhaya Spun Pipes Logo" class="brand-logo-img" width="44" height="44" onerror="this.onerror=null;this.src='./assets/images/logo.svg';">
+          <picture class="brand-logo-picture">
+            <source srcset="./assets/images/logo.webp" type="image/webp">
+            <img src="./assets/images/logo.png" alt="Udhaya Spun Pipes Logo" class="brand-logo-img" width="44" height="44" decoding="sync" onerror="this.onerror=null;this.src='./assets/images/logo.svg';">
+          </picture>
           <div class="brand-title">
             <span class="brand-name">UDHAYA <span>SPUN PIPES</span></span>
             <span class="brand-subtitle">MANAMADURAI, TAMIL NADU</span>
@@ -155,7 +164,12 @@
          ==================================================================== -->
     <section id="home" class="hero-section" aria-labelledby="hero-heading">
       <div class="hero-background">
-        <img src="./assets/images/hero.jpg" alt="Stacked Udhaya Spun Pipes RCC concrete pipes with socket collars at Manamadurai, Sivaganga, Tamil Nadu" class="hero-bg-img" loading="eager" fetchpriority="high">
+        <picture>
+          <source media="(max-width: 768px)" srcset="./assets/images/hero-mobile.webp" type="image/webp">
+          <source media="(max-width: 768px)" srcset="./assets/images/hero-mobile.jpg" type="image/jpeg">
+          <source srcset="./assets/images/hero.webp" type="image/webp">
+          <img src="./assets/images/hero.jpg" alt="Stacked Udhaya Spun Pipes RCC concrete pipes with socket collars at Manamadurai, Sivaganga, Tamil Nadu" class="hero-bg-img" loading="eager" fetchpriority="high" width="1280" height="960" decoding="async">
+        </picture>
         <div class="hero-overlay"></div>
       </div>
 
@@ -258,7 +272,10 @@
           </div>
 
           <div class="about-image-wrapper reveal-on-scroll">
-            <img src="./assets/images/about.jpg" alt="Udhaya Spun Pipes wholesale delivery truck in Manamadurai carrying RCC pipes for Tamil Nadu infrastructure supply (Phone: 9865944944)" class="about-main-image" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/about.webp" type="image/webp">
+              <img src="./assets/images/about.jpg" alt="Udhaya Spun Pipes wholesale delivery truck in Manamadurai carrying RCC pipes for Tamil Nadu infrastructure supply (Phone: 9865944944)" class="about-main-image" loading="lazy" decoding="async" width="600" height="450">
+            </picture>
             <div class="about-card-badge">
               <span class="about-badge-title">Wholesale Procurement</span>
               <p class="about-badge-text">Direct Factory Supply For Infrastructure &amp; Commercial Projects</p>
@@ -285,9 +302,12 @@
           <!-- Product Card 1: NP2 -->
           <article class="product-card reveal-on-scroll" aria-labelledby="prod-np2-title">
             <div class="product-card-img-wrapper">
-              <img src="./assets/images/products/np2-pipes.jpg" alt="NP2 RCC Concrete Pipes" class="product-card-img" loading="lazy">
+              <picture>
+                <source srcset="./assets/images/products/np2-pipes.webp" type="image/webp">
+                <img src="./assets/images/products/np2-pipes.jpg" alt="NP2 RCC Concrete Pipes" class="product-card-img" loading="lazy" decoding="async" width="400" height="267">
+              </picture>
               <span class="product-grade-badge">Grade NP2</span>
-              <span class="product-sizes-count-badge">6 Confirmed Sizes</span>
+              <span class="product-sizes-count-badge">5 Confirmed Sizes</span>
             </div>
             <div class="product-card-body">
               <h3 id="prod-np2-title" class="product-card-title">NP2 RCC Pipes</h3>
@@ -299,13 +319,12 @@
               <div class="product-specs-box">
                 <div class="product-specs-label">
                   <span>Pipe Diameter (Internal Diameter / ID)</span>
-                  <strong>6 Sizes</strong>
+                  <strong>5 Sizes</strong>
                 </div>
                 <div class="diameter-tags-list">
                   <span class="diameter-tag">150 mm</span>
                   <span class="diameter-tag">250 mm</span>
-                  <span class="diameter-tag">300 mm</span>
-                  <span class="diameter-tag">400 mm</span>
+                  <span class="diameter-tag">450 mm</span>
                   <span class="diameter-tag">600 mm</span>
                   <span class="diameter-tag">900 mm</span>
                 </div>
@@ -321,7 +340,10 @@
           <!-- Product Card 2: NP3 -->
           <article class="product-card reveal-on-scroll" aria-labelledby="prod-np3-title">
             <div class="product-card-img-wrapper">
-              <img src="./assets/images/products/np3-pipes.jpg" alt="NP3 RCC Concrete Pipes" class="product-card-img" loading="lazy">
+              <picture>
+                <source srcset="./assets/images/products/np3-pipes.webp" type="image/webp">
+                <img src="./assets/images/products/np3-pipes.jpg" alt="NP3 RCC Concrete Pipes" class="product-card-img" loading="lazy" decoding="async" width="400" height="267">
+              </picture>
               <span class="product-grade-badge">Grade NP3</span>
               <span class="product-sizes-count-badge">7 Confirmed Sizes</span>
             </div>
@@ -339,7 +361,7 @@
                 </div>
                 <div class="diameter-tags-list">
                   <span class="diameter-tag">300 mm</span>
-                  <span class="diameter-tag">400 mm</span>
+                  <span class="diameter-tag">450 mm</span>
                   <span class="diameter-tag">600 mm</span>
                   <span class="diameter-tag">900 mm</span>
                   <span class="diameter-tag">1000 mm</span>
@@ -358,7 +380,10 @@
           <!-- Product Card 3: NP4 -->
           <article class="product-card reveal-on-scroll" aria-labelledby="prod-np4-title">
             <div class="product-card-img-wrapper">
-              <img src="./assets/images/products/np4-pipes.jpg" alt="NP4 RCC Concrete Pipes" class="product-card-img" loading="lazy">
+              <picture>
+                <source srcset="./assets/images/products/np4-pipes.webp" type="image/webp">
+                <img src="./assets/images/products/np4-pipes.jpg" alt="NP4 RCC Concrete Pipes" class="product-card-img" loading="lazy" decoding="async" width="400" height="267">
+              </picture>
               <span class="product-grade-badge">Grade NP4</span>
               <span class="product-sizes-count-badge">5 Confirmed Sizes</span>
             </div>
@@ -410,7 +435,10 @@
           <!-- Stage 1 -->
           <div class="process-card reveal-on-scroll">
             <span class="process-step-number">01</span>
-            <img src="./assets/images/manufacturing/stage1-materials.jpg" alt="Precast concrete pipe batching yard and cured stock at Manamadurai" class="process-card-img-thumb" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/manufacturing/stage1-materials.webp" type="image/webp">
+              <img src="./assets/images/manufacturing/stage1-materials.jpg" alt="Precast concrete pipe batching yard and cured stock at Manamadurai" class="process-card-img-thumb" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <h3 class="process-card-title">Raw Material Preparation</h3>
             <p class="process-card-desc">
               Careful sourcing and preparation of cement, graded coarse and fine aggregates, clean water, and high-tensile steel reinforcement cages according to required grade dimensions.
@@ -420,7 +448,10 @@
           <!-- Stage 2 -->
           <div class="process-card reveal-on-scroll">
             <span class="process-step-number">02</span>
-            <img src="./assets/images/manufacturing/stage2-mixing.jpg" alt="Precision steel pipe moulds and gantry crane setup at Udhaya Spun Pipes" class="process-card-img-thumb" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/manufacturing/stage2-mixing.webp" type="image/webp">
+              <img src="./assets/images/manufacturing/stage2-mixing.jpg" alt="Precision steel pipe moulds and gantry crane setup at Udhaya Spun Pipes" class="process-card-img-thumb" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <h3 class="process-card-title">Mould Setup &amp; Reinforcement</h3>
             <p class="process-card-desc">
               Precision mould preparation and placement of concentric steel reinforcement cages, ensuring exact wall thickness and dimensional consistency for centrifugal spinning.
@@ -430,7 +461,10 @@
           <!-- Stage 3 -->
           <div class="process-card reveal-on-scroll">
             <span class="process-step-number">03</span>
-            <img src="./assets/images/manufacturing/stage3-moulding.jpg" alt="Pipe moulding with overhead gantry crane and compaction in factory yard" class="process-card-img-thumb" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/manufacturing/stage3-moulding.webp" type="image/webp">
+              <img src="./assets/images/manufacturing/stage3-moulding.jpg" alt="Pipe moulding with overhead gantry crane and compaction in factory yard" class="process-card-img-thumb" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <h3 class="process-card-title">Pipe Moulding &amp; Compaction</h3>
             <p class="process-card-desc">
               Centrifugal spinning compaction using heavy gantry-supported moulds to expel air bubbles, delivering high-density concrete with impermeable walls and smooth internal bore.
@@ -440,7 +474,10 @@
           <!-- Stage 4 -->
           <div class="process-card reveal-on-scroll">
             <span class="process-step-number">04</span>
-            <img src="./assets/images/manufacturing/stage4-curing.jpg" alt="Controlled hydration and curing of finished RCC pipes in yard" class="process-card-img-thumb" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/manufacturing/stage4-curing.webp" type="image/webp">
+              <img src="./assets/images/manufacturing/stage4-curing.jpg" alt="Controlled hydration and curing of finished RCC pipes in yard" class="process-card-img-thumb" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <h3 class="process-card-title">Controlled Yard Curing</h3>
             <p class="process-card-desc">
               Controlled hydration and curing cycles in yard storage to cultivate high compressive strength, prevent shrinkage cracks, and prepare joint surfaces for field installation.
@@ -450,7 +487,10 @@
           <!-- Stage 5 -->
           <div class="process-card reveal-on-scroll">
             <span class="process-step-number">05</span>
-            <img src="./assets/images/manufacturing/stage5-inspection.jpg" alt="Quality inspection of internal diameter, wall thickness, and socket finish" class="process-card-img-thumb" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/manufacturing/stage5-inspection.webp" type="image/webp">
+              <img src="./assets/images/manufacturing/stage5-inspection.jpg" alt="Quality inspection of internal diameter, wall thickness, and socket finish" class="process-card-img-thumb" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <h3 class="process-card-title">Dimensional &amp; Quality Inspection</h3>
             <p class="process-card-desc">
               Systematic dimensional verification checking internal diameter (ID), barrel uniformity, surface finish, and soundness to verify alignment with customer procurement requirements.
@@ -460,7 +500,10 @@
           <!-- Stage 6 -->
           <div class="process-card reveal-on-scroll">
             <span class="process-step-number">06</span>
-            <img src="./assets/images/manufacturing/stage6-dispatch.jpg" alt="Secured loading on flatbed delivery truck for Tamil Nadu dispatch" class="process-card-img-thumb" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/manufacturing/stage6-dispatch.webp" type="image/webp">
+              <img src="./assets/images/manufacturing/stage6-dispatch.jpg" alt="Secured loading on flatbed delivery truck for Tamil Nadu dispatch" class="process-card-img-thumb" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <h3 class="process-card-title">Dispatch &amp; Tamil Nadu Supply</h3>
             <p class="process-card-desc">
               Safe stacking in our Manamadurai yard, secure crane loading, and coordinated transport dispatch for direct project site delivery across districts in Tamil Nadu.
@@ -588,7 +631,7 @@
             <svg class="why-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             <h3 class="why-card-title">Multiple Diameter Options</h3>
             <p class="why-card-desc">
-              Offering 9 confirmed internal diameter sizes (from 150 mm to 1400 mm) across 18 verified grade-size combinations to fit exact hydraulic designs.
+              Offering 9 confirmed internal diameter sizes (from 150 mm to 1400 mm) across 17 verified grade-size combinations to fit exact hydraulic designs.
             </p>
           </div>
 
@@ -639,10 +682,14 @@
           <!-- Gallery Item 1 -->
           <div class="gallery-item reveal-on-scroll" 
                tabindex="0"
-               data-lightbox-src="./assets/images/gallery/gallery-1.jpg"
+               data-lightbox-src="./assets/images/gallery/gallery-1.webp"
+               data-lightbox-fallback="./assets/images/gallery/gallery-1.jpg"
                data-lightbox-title="Finished Concrete Pipes Yard Storage"
                data-lightbox-desc="Organized yard inventory of RCC pipes in diverse internal diameters ready for client inspection and delivery.">
-            <img src="./assets/images/gallery/gallery-1.jpg" alt="Finished RCC concrete pipes in factory yard at Manamadurai" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/gallery/gallery-1-thumb.webp" type="image/webp">
+              <img src="./assets/images/gallery/gallery-1-thumb.jpg" alt="Finished RCC concrete pipes in factory yard at Manamadurai" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <div class="gallery-overlay">
               <span class="gallery-zoom-icon" aria-hidden="true">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
@@ -655,10 +702,14 @@
           <!-- Gallery Item 2 -->
           <div class="gallery-item reveal-on-scroll" 
                tabindex="0"
-               data-lightbox-src="./assets/images/gallery/gallery-2.jpg"
+               data-lightbox-src="./assets/images/gallery/gallery-2.webp"
+               data-lightbox-fallback="./assets/images/gallery/gallery-2.jpg"
                data-lightbox-title="Direct Project Site Delivery &amp; Unloading"
                data-lightbox-desc="Safe unloading of RCC pipes directly along an active infrastructure project layout in Tamil Nadu.">
-            <img src="./assets/images/gallery/gallery-2.jpg" alt="Workers unloading RCC concrete pipes at infrastructure project layout" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/gallery/gallery-2-thumb.webp" type="image/webp">
+              <img src="./assets/images/gallery/gallery-2-thumb.jpg" alt="Workers unloading RCC concrete pipes at infrastructure project layout" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <div class="gallery-overlay">
               <span class="gallery-zoom-icon" aria-hidden="true">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
@@ -671,10 +722,14 @@
           <!-- Gallery Item 3 -->
           <div class="gallery-item reveal-on-scroll" 
                tabindex="0"
-               data-lightbox-src="./assets/images/gallery/gallery-3.jpg"
+               data-lightbox-src="./assets/images/gallery/gallery-3.webp"
+               data-lightbox-fallback="./assets/images/gallery/gallery-3.jpg"
                data-lightbox-title="Branded Wholesale Delivery Truck"
                data-lightbox-desc="Udhaya Spun Pipes delivery lorry with factory contact (+91 9865944944) transporting large-diameter culvert pipes.">
-            <img src="./assets/images/gallery/gallery-3.jpg" alt="Udhaya Spun Pipes branded transport truck delivering large diameter pipes" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/gallery/gallery-3-thumb.webp" type="image/webp">
+              <img src="./assets/images/gallery/gallery-3-thumb.jpg" alt="Udhaya Spun Pipes branded transport truck delivering large diameter pipes" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <div class="gallery-overlay">
               <span class="gallery-zoom-icon" aria-hidden="true">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
@@ -687,10 +742,14 @@
           <!-- Gallery Item 4 -->
           <div class="gallery-item reveal-on-scroll" 
                tabindex="0"
-               data-lightbox-src="./assets/images/gallery/gallery-4.jpg"
+               data-lightbox-src="./assets/images/gallery/gallery-4.webp"
+               data-lightbox-fallback="./assets/images/gallery/gallery-4.jpg"
                data-lightbox-title="Heavy-Duty Culvert Pipes Transport"
                data-lightbox-desc="Heavy-load transport carrying 1000mm and 1200mm internal diameter culvert pipes for infrastructure projects.">
-            <img src="./assets/images/gallery/gallery-4.jpg" alt="Heavy transport truck loaded with large diameter concrete culvert pipes" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/gallery/gallery-4-thumb.webp" type="image/webp">
+              <img src="./assets/images/gallery/gallery-4-thumb.jpg" alt="Heavy transport truck loaded with large diameter concrete culvert pipes" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <div class="gallery-overlay">
               <span class="gallery-zoom-icon" aria-hidden="true">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
@@ -703,10 +762,14 @@
           <!-- Gallery Item 5 -->
           <div class="gallery-item reveal-on-scroll" 
                tabindex="0"
-               data-lightbox-src="./assets/images/gallery/gallery-5.jpg"
+               data-lightbox-src="./assets/images/gallery/gallery-5.webp"
+               data-lightbox-fallback="./assets/images/gallery/gallery-5.jpg"
                data-lightbox-title="Precision Spun Concrete Finish"
                data-lightbox-desc="Smooth internal bore and dense concrete barrel ensuring superior hydraulic flow and longevity.">
-            <img src="./assets/images/gallery/gallery-5.jpg" alt="Spun concrete pipes showing smooth interior bore and circular geometry" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/gallery/gallery-5-thumb.webp" type="image/webp">
+              <img src="./assets/images/gallery/gallery-5-thumb.jpg" alt="Spun concrete pipes showing smooth interior bore and circular geometry" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <div class="gallery-overlay">
               <span class="gallery-zoom-icon" aria-hidden="true">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
@@ -719,10 +782,14 @@
           <!-- Gallery Item 6 -->
           <div class="gallery-item reveal-on-scroll" 
                tabindex="0"
-               data-lightbox-src="./assets/images/gallery/gallery-6.jpg"
+               data-lightbox-src="./assets/images/gallery/gallery-6.webp"
+               data-lightbox-fallback="./assets/images/gallery/gallery-6.jpg"
                data-lightbox-title="Project Trench Staging"
                data-lightbox-desc="RCC pipes staged along the installation route ready for drainage culvert placement.">
-            <img src="./assets/images/gallery/gallery-6.jpg" alt="RCC pipes aligned along project trench route for culvert installation" loading="lazy">
+            <picture>
+              <source srcset="./assets/images/gallery/gallery-6-thumb.webp" type="image/webp">
+              <img src="./assets/images/gallery/gallery-6-thumb.jpg" alt="RCC pipes aligned along project trench route for culvert installation" loading="lazy" decoding="async" width="400" height="267">
+            </picture>
             <div class="gallery-overlay">
               <span class="gallery-zoom-icon" aria-hidden="true">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
@@ -924,7 +991,7 @@
                     <label for="quoteGrade" class="form-label">Pipe Grade <span class="required">*</span></label>
                     <select id="quoteGrade" name="pipeGrade" class="form-control" required>
                       <option value="">-- Select Grade (NP2 / NP3 / NP4) --</option>
-                      <option value="NP2">NP2 RCC Pipes (Light to Medium Duty - 6 sizes)</option>
+                      <option value="NP2">NP2 RCC Pipes (Light to Medium Duty - 5 sizes)</option>
                       <option value="NP3">NP3 RCC Pipes (Medium Duty Road Load - 7 sizes)</option>
                       <option value="NP4">NP4 RCC Pipes (Heavy Duty High Load - 5 sizes)</option>
                     </select>
@@ -1013,7 +1080,10 @@
         <!-- Brand Summary Column -->
         <div class="footer-brand-col">
           <a href="#home" class="brand-wrapper" aria-label="Udhaya Spun Pipes">
-            <img src="./assets/images/logo.png" alt="Udhaya Spun Pipes Logo" class="brand-logo-img" width="48" height="48" onerror="this.onerror=null;this.src='./assets/images/logo.svg';">
+            <picture class="brand-logo-picture">
+              <source srcset="./assets/images/logo.webp" type="image/webp">
+              <img src="./assets/images/logo.png" alt="Udhaya Spun Pipes Logo" class="brand-logo-img" width="48" height="48" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='./assets/images/logo.svg';">
+            </picture>
             <div class="brand-title">
               <span class="brand-name">UDHAYA <span>SPUN PIPES</span></span>
               <span class="brand-subtitle">RCC PIPE MANUFACTURER</span>
@@ -1046,7 +1116,7 @@
         <div>
           <h4 class="footer-col-title">Products</h4>
           <ul class="footer-links-list">
-            <li><a href="#products" class="footer-link">NP2 RCC Pipes (6 Sizes)</a></li>
+            <li><a href="#products" class="footer-link">NP2 RCC Pipes (5 Sizes)</a></li>
             <li><a href="#products" class="footer-link">NP3 RCC Pipes (7 Sizes)</a></li>
             <li><a href="#products" class="footer-link">NP4 RCC Pipes (5 Sizes)</a></li>
             <li><a href="#quotation" class="footer-link">Request Quotation</a></li>

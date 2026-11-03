@@ -17,19 +17,19 @@ Enterprise-grade, mobile-responsive corporate website for **Udhaya Spun Pipes**,
 
 ---
 
-## 2. Confirmed Product Catalogue (18 Grade-Size Combinations)
+## 2. Confirmed Product Catalogue (17 Grade-Size Combinations)
 
 > [!IMPORTANT]
 > All measurements refer strictly to **INTERNAL DIAMETER (ID)** in millimeters (mm).
 
 | Grade | Classification | Confirmed Internal Diameters (ID) | Total Sizes |
 | :--- | :--- | :--- | :---: |
-| **NP2** | Light to Medium Duty | 150 mm, 250 mm, 300 mm, 400 mm, 600 mm, 900 mm | **6** |
-| **NP3** | Medium Duty (Road Loading) | 300 mm, 400 mm, 600 mm, 900 mm, 1000 mm, 1200 mm, 1400 mm | **7** |
+| **NP2** | Light to Medium Duty | 150 mm, 250 mm, 450 mm, 600 mm, 900 mm | **5** |
+| **NP3** | Medium Duty (Road Loading) | 300 mm, 450 mm, 600 mm, 900 mm, 1000 mm, 1200 mm, 1400 mm | **7** |
 | **NP4** | Heavy Duty (High Load/Railways) | 600 mm, 900 mm, 1000 mm, 1200 mm, 1400 mm | **5** |
 
-- **Total Confirmed Combinations:** 18
-- **Unique Diameter Options:** 9 (150 mm, 250 mm, 300 mm, 400 mm, 600 mm, 900 mm, 1000 mm, 1200 mm, 1400 mm)
+- **Total Confirmed Combinations:** 17
+- **Unique Diameter Options:** 9 (150 mm, 250 mm, 300 mm, 450 mm, 600 mm, 900 mm, 1000 mm, 1200 mm, 1400 mm)
 
 ---
 
