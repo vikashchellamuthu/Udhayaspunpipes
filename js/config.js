@@ -16,12 +16,13 @@ const CONFIG = {
     phoneRaw: "919865944944",
     phoneSecondaryRaw: "919865844944",
     whatsappNumber: "919865944944",
-    email: "udhayaspunpipes@gmail.com",
+    email: "vikashchellamuthu@gmail.com",
     coverage: "All over Tamil Nadu",
     locationCoordinates: {
-      lat: 9.7042,
-      lng: 78.4489
-    }
+      lat: 9.690571,
+      lng: 78.466793
+    },
+    googleMapsUrl: "https://maps.app.goo.gl/dT6FxAwouwe4GS4h9"
   },
 
   /**
@@ -29,7 +30,7 @@ const CONFIG = {
    * 
    * How to set up EmailJS:
    * 1. Sign up at https://www.emailjs.com/
-   * 2. Add an Email Service (e.g. Gmail: udhayaspunpipes@gmail.com) -> copy Service ID
+   * 2. Add an Email Service (e.g. Gmail: vikashchellamuthu@gmail.com) -> copy Service ID
    * 3. Create an Email Template with fields:
    *    {{customer_name}}, {{customer_phone}}, {{customer_email}}, {{company_name}},
    *    {{pipe_grade}}, {{pipe_diameter}}, {{quantity}}, {{delivery_location}}, {{message}}

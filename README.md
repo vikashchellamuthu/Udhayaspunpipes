@@ -11,7 +11,8 @@ Enterprise-grade, mobile-responsive corporate website for **Udhaya Spun Pipes**,
 - **Registered Works Address:** Moongiloorani, Kannar Street, Manamadurai, Sivaganga, Tamil Nadu, India.
 - **Phone:** [+91 9865944944](tel:+919865944944) / [+91 9865844944](tel:+919865844944)
 - **WhatsApp:** [+91 9865944944](https://wa.me/919865944944)
-- **Email:** [udhayaspunpipes@gmail.com](mailto:udhayaspunpipes@gmail.com)
+- **Email:** [vikashchellamuthu@gmail.com](mailto:vikashchellamuthu@gmail.com)
+- **Google Maps:** [Works Depot (9.690571, 78.466793)](https://maps.app.goo.gl/dT6FxAwouwe4GS4h9)
 - **Supply Coverage:** All over Tamil Nadu
 - **Production Capacity:** Flexible production capacity that can be maximised according to customer requirements.
 - **Homepage Headline:** *"Stronger Today for a Better Tomorrow"*
@@ -43,9 +44,9 @@ Enterprise-grade, mobile-responsive corporate website for **Udhaya Spun Pipes**,
 - **Integrations:**
   - Dynamic grade-diameter product filtering
   - WhatsApp instant quotation delivery (`https://wa.me/919865944944`)
-  - EmailJS email dispatch integration (`udhayaspunpipes@gmail.com`)
+  - EmailJS email dispatch integration (`vikashchellamuthu@gmail.com`)
   - Interactive lightbox gallery
-  - Embedded Google Maps directions
+  - Embedded Google Maps directions with exact GPS coordinates (`9.690571, 78.466793`) and [Google Maps Link](https://maps.app.goo.gl/dT6FxAwouwe4GS4h9)
 
 ---
 
@@ -128,11 +129,11 @@ npx serve .
 
 ## 7. EmailJS Integration Configuration
 
-Customer quotation enquiries are routed to `udhayaspunpipes@gmail.com`.
+Customer quotation enquiries are routed to `vikashchellamuthu@gmail.com`.
 
 To activate live EmailJS delivery:
 1. Register for free at [EmailJS](https://www.emailjs.com/).
-2. Connect your Gmail service (`udhayaspunpipes@gmail.com`) and copy the **Service ID**.
+2. Connect your Gmail service (`vikashchellamuthu@gmail.com`) and copy the **Service ID**.
 3. Create an Email Template with these template variables:
    - `{{customer_name}}`
    - `{{customer_phone}}`

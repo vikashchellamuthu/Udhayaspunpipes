@@ -86,8 +86,24 @@ assert 'id="pipeTotalCount"' in html, "pipeTotalCount missing"
 assert 'id="pipeRowsBadge"' in html, "pipeRowsBadge missing"
 print("   [PASS] Dynamic multi-product container, add button, and counter elements present.")
 
-# 6. Verify Live HTTP Server
-print("\n6. Verifying Live HTTP Server (http://127.0.0.1:8080/):")
+# 6. Verify Email and Google Maps Location Updates
+print("\n6. Verifying Email and Google Maps Location Updates:")
+assert "vikashchellamuthu@gmail.com" in html, "New email missing in HTML"
+assert "mailto:vikashchellamuthu@gmail.com" in html, "New mailto: link missing in HTML"
+assert "udhayaspunpipes@gmail.com" not in html, "Old email still present in HTML"
+assert 'email: "vikashchellamuthu@gmail.com"' in config, "New email missing in config.js"
+assert "udhayaspunpipes@gmail.com" not in config, "Old email still present in config.js"
+assert "https://maps.app.goo.gl/dT6FxAwouwe4GS4h9" in html, "Google Maps directions link missing in HTML"
+assert "9.690571" in html and "78.466793" in html, "Exact coordinates missing in HTML"
+assert "9.7042" not in html and "78.4489" not in html, "Old coordinates still present in HTML"
+assert "lat: 9.690571" in config and "lng: 78.466793" in config, "Coordinates missing in config.js"
+print("   [PASS] Company email updated to vikashchellamuthu@gmail.com across all sections and config.")
+print("   [PASS] Old email udhayaspunpipes@gmail.com is 100% removed.")
+print("   [PASS] Google Maps link updated to https://maps.app.goo.gl/dT6FxAwouwe4GS4h9.")
+print("   [PASS] Embedded iframe and Schema.org point to exact coordinates 9.690571, 78.466793.")
+
+# 7. Verify Live HTTP Server
+print("\n7. Verifying Live HTTP Server (http://127.0.0.1:8080/):")
 req = urllib.request.Request("http://127.0.0.1:8080/", headers={"User-Agent": "Mozilla/5.0"})
 with urllib.request.urlopen(req, timeout=5) as res:
     assert res.status == 200, f"HTTP status {res.status}"
@@ -95,6 +111,10 @@ with urllib.request.urlopen(req, timeout=5) as res:
     assert "Stronger Today for a" in body
     assert "+91 9865844944" in body
     assert "addPipeItemBtn" in body
+    assert "vikashchellamuthu@gmail.com" in body
+    assert "udhayaspunpipes@gmail.com" not in body
+    assert "https://maps.app.goo.gl/dT6FxAwouwe4GS4h9" in body
+    assert "9.690571,78.466793" in body
     print(f"   [HTTP 200 OK] Live website serving updated content ({len(body):,} bytes).")
 
 print("\n" + "=" * 70)
