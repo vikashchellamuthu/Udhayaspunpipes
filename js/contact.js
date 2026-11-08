@@ -1,14 +1,14 @@
 /**
- * UDHAYA SPUN PIPES - Contact & Quotation Form Handler
+ * UDHAYA SPUN PIPES - Contact & Multi-Product Quotation Form Handler
  * 
  * Implements:
- * - Real-time and submit validation
+ * - Real-time and submit validation for customer fields
+ * - Strict multi-product order validation (NP2, NP3, NP4 with confirmed diameters)
  * - Indian mobile number validation (10 digits starting with 6-9)
- * - Positive quantity validation
- * - Dynamic grade and diameter compatibility check
+ * - Dynamic multi-pipe requirements collection & summary
  * - Anti-spam honeypot
- * - WhatsApp enquiry builder (properly URL-encoded)
- * - EmailJS integration with fallback & non-mocked delivery state
+ * - WhatsApp multi-product enquiry builder (properly URL-encoded)
+ * - EmailJS integration with itemized specifications payload & fallback
  */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -19,24 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!quoteForm) return;
 
-  // Real-time validation listeners
+  // Real-time phone input validation listener
   const phoneInput = document.getElementById("quotePhone");
   if (phoneInput) {
     phoneInput.addEventListener("input", function () {
-      // Clean non-digits
       this.value = this.value.replace(/[^\d+ ]/g, "");
       validatePhone(this);
-    });
-  }
-
-  const quantityInput = document.getElementById("quoteQuantity");
-  if (quantityInput) {
-    quantityInput.addEventListener("input", function () {
-      if (Number(this.value) <= 0) {
-        showFieldError(this, "Quantity must be at least 1.");
-      } else {
-        clearFieldError(this);
-      }
     });
   }
 
@@ -65,11 +53,20 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!validateForm(formData)) return;
 
     // Show loading state
-    setButtonLoading(submitBtn, true, "Processing Enquiry...");
+    setButtonLoading(submitBtn, true, "Processing Quotation Request...");
     clearAlert(alertContainer);
 
+    // Format itemized summaries
+    const itemsFormattedText = formData.items.map((item, idx) => 
+      `${idx + 1}. Grade ${item.grade} - ${item.diameter} mm (Internal Diameter / ID) — ${item.quantity} Nos`
+    ).join("\n");
+
+    const itemsShortSummary = formData.items.map(item => 
+      `${item.grade} ${item.diameter}mm (${item.quantity} Nos)`
+    ).join(", ");
+
     // Check if EmailJS is configured
-    if (typeof emailjs !== "undefined" && CONFIG.emailjs.isConfigured()) {
+    if (typeof emailjs !== "undefined" && typeof CONFIG !== "undefined" && CONFIG.emailjs && CONFIG.emailjs.isConfigured()) {
       try {
         emailjs.init(CONFIG.emailjs.publicKey);
 
@@ -78,10 +75,13 @@ document.addEventListener("DOMContentLoaded", function () {
           customer_phone: formData.phone,
           customer_email: formData.email || "Not Provided",
           company_name: formData.company || "Not Provided",
-          pipe_grade: formData.grade,
-          pipe_diameter: `${formData.diameter} mm (Internal Diameter / ID)`,
-          quantity: formData.quantity,
           delivery_location: formData.location,
+          pipe_requirements: itemsFormattedText,
+          items_summary: itemsShortSummary,
+          total_pipes_count: `${formData.totalQuantity} Nos`,
+          pipe_grade: itemsShortSummary,
+          pipe_diameter: formData.items.map(i => `${i.diameter}mm`).join(", "),
+          quantity: `${formData.totalQuantity} Nos`,
           message: formData.message || "None",
           submitted_at: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
         };
@@ -96,14 +96,13 @@ document.addEventListener("DOMContentLoaded", function () {
           showAlert(
             alertContainer,
             "success",
-            "<strong>Quotation Request Sent Successfully!</strong> Our team at Udhaya Spun Pipes will review your specifications and contact you promptly. You may also click below to forward your enquiry directly to our business WhatsApp."
+            `<strong>Quotation Request Sent Successfully!</strong><br>
+            We have received your multi-product enquiry for <strong>${formData.items.length} pipe specification(s) (${formData.totalQuantity} Nos total)</strong>.<br>
+            Our sales team at Udhaya Spun Pipes will contact you promptly at <strong>${formData.phone}</strong>. You may also click below to forward your exact requirements directly to our business WhatsApp.`
           );
           
-          // Also offer direct WhatsApp sync
-          appendWhatsAppSyncButton(alertContainer, formData);
-          quoteForm.reset();
-          document.getElementById("quoteDiameter").disabled = true;
-          document.getElementById("quoteDiameter").innerHTML = '<option value="">-- Select Available Diameter --</option>';
+          appendWhatsAppSyncButton(alertContainer, formData, false);
+          resetQuotationForm();
         } else {
           throw new Error("EmailJS returned status " + response.status);
         }
@@ -112,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
         showAlert(
           alertContainer,
           "error",
-          "<strong>Email transmission encountered an issue.</strong> Please forward your enquiry directly via WhatsApp for immediate response."
+          "<strong>Email transmission encountered an issue.</strong> Please click below to send your quotation directly via WhatsApp for an immediate response."
         );
         appendWhatsAppSyncButton(alertContainer, formData, true);
       } finally {
@@ -125,15 +124,15 @@ document.addEventListener("DOMContentLoaded", function () {
       showAlert(
         alertContainer,
         "info",
-        `<strong>Form Validated Successfully!</strong><br>
-        EmailJS integration requires your Service ID &amp; Template ID in <code>js/config.js</code>.<br>
+        `<strong>Quotation Request Validated Successfully!</strong><br>
+        Your enquiry with <strong>${formData.items.length} pipe requirement(s) (${formData.totalQuantity} Nos total)</strong> is ready.<br>
         Opening your verified enquiry directly in <strong>WhatsApp (+91 9865944944)</strong> now...`
       );
 
       // Automatically launch prefilled WhatsApp message
       setTimeout(() => {
         sendViaWhatsApp(formData);
-      }, 800);
+      }, 700);
 
       appendWhatsAppSyncButton(alertContainer, formData, false);
     }
@@ -141,36 +140,43 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /**
- * Extracts and trims all form values
+ * Extracts and trims all form values including all multi-product requirement rows
+ * @returns {object}
  */
 function getFormData() {
+  const items = typeof getOrderItems === "function" ? getOrderItems() : [];
+  let totalQuantity = 0;
+  items.forEach(item => {
+    if (item.isValid && item.quantity) {
+      totalQuantity += item.quantity;
+    }
+  });
+
   return {
     name: document.getElementById("quoteName")?.value.trim() || "",
     phone: document.getElementById("quotePhone")?.value.trim() || "",
     email: document.getElementById("quoteEmail")?.value.trim() || "",
     company: document.getElementById("quoteCompany")?.value.trim() || "",
-    grade: document.getElementById("quoteGrade")?.value.trim() || "",
-    diameter: document.getElementById("quoteDiameter")?.value.trim() || "",
-    quantity: document.getElementById("quoteQuantity")?.value.trim() || "",
     location: document.getElementById("quoteLocation")?.value.trim() || "",
-    message: document.getElementById("quoteMessage")?.value.trim() || ""
+    message: document.getElementById("quoteMessage")?.value.trim() || "",
+    items: items,
+    totalQuantity: totalQuantity
   };
 }
 
 /**
- * Form Validation
+ * Validates customer details and each individual product requirement row
+ * @param {object} data 
+ * @returns {boolean}
  */
 function validateForm(data) {
   let isValid = true;
   const nameField = document.getElementById("quoteName");
   const phoneField = document.getElementById("quotePhone");
   const emailField = document.getElementById("quoteEmail");
-  const gradeField = document.getElementById("quoteGrade");
-  const diameterField = document.getElementById("quoteDiameter");
-  const quantityField = document.getElementById("quoteQuantity");
   const locationField = document.getElementById("quoteLocation");
 
-  // Name check
+  // 1. Customer Name check
   if (!data.name || data.name.length < 2) {
     showFieldError(nameField, "Please enter your full name (minimum 2 characters).");
     isValid = false;
@@ -178,17 +184,17 @@ function validateForm(data) {
     clearFieldError(nameField);
   }
 
-  // Phone check (Indian 10-digit mobile number)
+  // 2. Phone check (Indian 10-digit mobile number)
   const phoneClean = data.phone.replace(/[\s\-\+]/g, "").replace(/^91/, "");
   const indianMobileRegex = /^[6-9]\d{9}$/;
   if (!indianMobileRegex.test(phoneClean)) {
-    showFieldError(phoneField, "Please enter a valid 10-digit Indian mobile number (e.g., 9865944944).");
+    showFieldError(phoneField, "Please enter a valid 10-digit Indian mobile number (e.g. 9865944944).");
     isValid = false;
   } else {
     clearFieldError(phoneField);
   }
 
-  // Email check (optional, but validate format if present)
+  // 3. Email check (optional, but validate format if entered)
   if (data.email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
@@ -201,40 +207,43 @@ function validateForm(data) {
     clearFieldError(emailField);
   }
 
-  // Grade check
-  if (!data.grade || !["NP2", "NP3", "NP4"].includes(data.grade)) {
-    showFieldError(gradeField, "Please select a valid pipe grade (NP2, NP3, or NP4).");
-    isValid = false;
-  } else {
-    clearFieldError(gradeField);
-  }
-
-  // Diameter check & grade compatibility
-  if (!data.diameter) {
-    showFieldError(diameterField, "Please select an available diameter for the chosen grade.");
-    isValid = false;
-  } else if (!isValidCombination(data.grade, data.diameter)) {
-    showFieldError(diameterField, `Diameter ${data.diameter} mm is not confirmed for grade ${data.grade}.`);
-    isValid = false;
-  } else {
-    clearFieldError(diameterField);
-  }
-
-  // Quantity check (positive integer)
-  const qtyNum = Number(data.quantity);
-  if (!data.quantity || isNaN(qtyNum) || qtyNum <= 0 || !Number.isInteger(qtyNum)) {
-    showFieldError(quantityField, "Please enter a positive whole number for quantity (e.g. 50).");
-    isValid = false;
-  } else {
-    clearFieldError(quantityField);
-  }
-
-  // Location check
+  // 4. Delivery Location check
   if (!data.location || data.location.length < 3) {
-    showFieldError(locationField, "Please enter delivery location / project site in Tamil Nadu.");
+    showFieldError(locationField, "Please enter your project site / delivery location in Tamil Nadu.");
     isValid = false;
   } else {
     clearFieldError(locationField);
+  }
+
+  // 5. Multi-product rows check
+  if (!data.items || data.items.length === 0) {
+    const alertContainer = document.getElementById("formAlert");
+    showAlert(alertContainer, "error", "Please add at least one RCC pipe requirement to your quotation.");
+    isValid = false;
+  } else {
+    let hasInvalidRow = false;
+    data.items.forEach(item => {
+      if (!item.isValid) {
+        hasInvalidRow = true;
+        if (typeof showRowError === "function") {
+          showRowError(item.rowElement, item.error || "Please complete this pipe requirement.");
+        }
+      } else {
+        if (typeof clearRowError === "function") {
+          clearRowError(item.rowElement);
+        }
+      }
+    });
+
+    if (hasInvalidRow) {
+      isValid = false;
+      const alertContainer = document.getElementById("formAlert");
+      showAlert(
+        alertContainer,
+        "error",
+        "<strong>Incomplete Pipe Requirements:</strong> Please select a grade, an available internal diameter (ID), and a valid positive quantity for each added pipe row."
+      );
+    }
   }
 
   return isValid;
@@ -271,20 +280,31 @@ function clearFieldError(input) {
 }
 
 /**
- * Builds the exact required WhatsApp text and opens in a new tab
+ * Builds the exact required WhatsApp text with all multi-product requirements
+ * @param {object} data 
  */
 function sendViaWhatsApp(data) {
+  const itemsText = data.items.map((item, idx) => 
+    `${idx + 1}. Grade ${item.grade} | ${item.diameter} mm (Internal Diameter / ID) — ${item.quantity} Nos`
+  ).join("\n");
+
   const messageLines = [
-    "NEW QUOTATION ENQUIRY — UDHAYA SPUN PIPES",
-    `Customer Name: ${data.name}`,
-    `Phone Number: ${data.phone}`,
-    `Email: ${data.email || "Not Provided"}`,
-    `Company Name: ${data.company || "Not Provided"}`,
-    `Pipe Grade: ${data.grade}`,
-    `Pipe Diameter: ${data.diameter} mm (Internal Diameter)`,
-    `Quantity Required: ${data.quantity}`,
-    `Delivery Location: ${data.location}`,
-    `Additional Message: ${data.message || "None"}`
+    "📦 *NEW RCC PIPE QUOTATION ENQUIRY*",
+    "🏢 *UDHAYA SPUN PIPES — MANAMADURAI*",
+    "-----------------------------------------",
+    `👤 *Customer Name:* ${data.name}`,
+    `📞 *Phone Number:* ${data.phone}`,
+    `🏢 *Company:* ${data.company || "Not Provided"}`,
+    `✉️ *Email:* ${data.email || "Not Provided"}`,
+    `📍 *Delivery Location:* ${data.location}`,
+    "",
+    `📋 *ORDER SPECIFICATIONS (${data.items.length} Pipe Item${data.items.length > 1 ? "s" : ""}):*`,
+    itemsText,
+    "",
+    `📊 *Total Quantity:* ${data.totalQuantity} Nos`,
+    `📝 *Additional Message:* ${data.message || "None"}`,
+    "-----------------------------------------",
+    "_Submitted via Udhaya Spun Pipes Website_"
   ];
 
   const fullMessage = messageLines.join("\n");
@@ -300,8 +320,42 @@ function sendViaWhatsApp(data) {
     showAlert(
       alertContainer,
       "success",
-      "<strong>WhatsApp Opened in New Window!</strong><br>Please click <strong>Send</strong> in WhatsApp to deliver your prefilled quotation enquiry to Udhaya Spun Pipes."
+      `<strong>WhatsApp Chat Opened in New Tab!</strong><br>
+      Your order for <strong>${data.items.length} item(s) (${data.totalQuantity} Nos total)</strong> is prefilled.<br>
+      Please tap <strong>Send</strong> in WhatsApp to deliver your enquiry directly to Udhaya Spun Pipes.`
     );
+  }
+}
+
+function resetQuotationForm() {
+  const quoteForm = document.getElementById("quotationForm");
+  if (!quoteForm) return;
+  quoteForm.reset();
+
+  const container = document.getElementById("pipeItemsContainer");
+  if (container) {
+    const rows = container.querySelectorAll(".pipe-item-row");
+    // Leave only 1 clean row
+    rows.forEach((r, idx) => {
+      if (idx === 0) {
+        const grade = r.querySelector(".item-grade");
+        const dia = r.querySelector(".item-diameter");
+        const qty = r.querySelector(".item-quantity");
+        if (grade) grade.value = "";
+        if (dia) {
+          dia.innerHTML = '<option value="">-- Select Grade First --</option>';
+          dia.disabled = true;
+        }
+        if (qty) qty.value = "";
+        if (typeof clearRowError === "function") clearRowError(r);
+      } else {
+        r.remove();
+      }
+    });
+  }
+
+  if (typeof updatePipeSummary === "function") {
+    updatePipeSummary();
   }
 }
 
@@ -334,6 +388,9 @@ function clearAlert(container) {
 
 function appendWhatsAppSyncButton(container, data, isError = false) {
   if (!container) return;
+  const existingSyncBtn = container.querySelector(".btn-whatsapp-sync");
+  if (existingSyncBtn) existingSyncBtn.remove();
+
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "btn btn-whatsapp-sync";

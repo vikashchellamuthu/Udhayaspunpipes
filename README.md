@@ -9,11 +9,12 @@ Enterprise-grade, mobile-responsive corporate website for **Udhaya Spun Pipes**,
 - **Company Name:** Udhaya Spun Pipes
 - **Business Focus:** RCC Pipe Manufacturing and Wholesale Supply
 - **Registered Works Address:** Moongiloorani, Kannar Street, Manamadurai, Sivaganga, Tamil Nadu, India.
-- **Phone:** [+91 9865944944](tel:+919865944944)
+- **Phone:** [+91 9865944944](tel:+919865944944) / [+91 9865844944](tel:+919865844944)
 - **WhatsApp:** [+91 9865944944](https://wa.me/919865944944)
 - **Email:** [udhayaspunpipes@gmail.com](mailto:udhayaspunpipes@gmail.com)
 - **Supply Coverage:** All over Tamil Nadu
 - **Production Capacity:** Flexible production capacity that can be maximised according to customer requirements.
+- **Homepage Headline:** *"Stronger Today for a Better Tomorrow"*
 
 ---
 
